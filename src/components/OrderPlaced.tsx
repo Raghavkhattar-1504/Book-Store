@@ -3,10 +3,11 @@ import Footer from './Footer'
 import confetti from '../assets/confetti.png'
 
 const OrderPlaced = () => {
+
+
     return (
         <div>
             <Navbar />
-
             <div className='w-[100%] h-[85vh] flex flex-col justify-evenly items-center'>
                 <div className='flex flex-col justify-center items-center w-full sm:w-[40%]'>
                     <img
@@ -50,7 +51,7 @@ const OrderPlaced = () => {
                                     admin@bookstore.com
                                 </div>
                             </div>
-                            
+
                             <div className="border-b border-[#DCDCDC]">
                                 <div className="bg-[#FAFAFA] px-4 py-2 font-semibold text-sm border-b border-[#DCDCDC]">
                                     Contact Us
@@ -59,7 +60,7 @@ const OrderPlaced = () => {
                                     +91 8163475881
                                 </div>
                             </div>
-                            
+
                             <div>
                                 <div className="bg-[#FAFAFA] px-4 py-2 font-semibold text-sm border-b border-[#DCDCDC]">
                                     Address

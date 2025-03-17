@@ -1,17 +1,16 @@
-
 import { Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const BookCard = (bookData : any) => {
+const BookCard = (bookData: any) => {
 
     const navigate = useNavigate();
 
     return (
-        <div className='w-[245px] h-[285px] border border-[#E2E2E2] hover:shadow-lg rounded-[5px] z-[100] cursor-pointer' onClick={()=>navigate('/bookdetail')} >
+        <div className='w-[245px] h-[285px] border border-[#E2E2E2] hover:shadow-lg rounded-[5px] z-[100] cursor-pointer' onClick={() => navigate('/bookdetail')} >
             <div className=' h-[171px] bg-[#F5F5F5] w-[100%]  flex justify-center items-center'>
-                <img src={bookData.image} alt="Book Name" className='h-[135px]' />
+                <img src={bookData.cover} alt="Book Name" className='h-[135px]' />
             </div>
-            <div className='bg-[#FFFFFF] h-[101px] w-[80%] !ml-10px'>
+            <div className='bg-[#FFFFFF] h-[101px] w-[80%] !ml-10px '>
                 <div className='flex flex-col !ml-[20px] gap-[2px]'>
                     <p className='text-[16px]'>{bookData.title}</p>
                     <p className='text-[13px] text-[#ADADAD]'>by {bookData.author}</p>
@@ -32,3 +31,4 @@ const BookCard = (bookData : any) => {
 }
 
 export default BookCard
+

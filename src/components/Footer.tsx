@@ -1,5 +1,4 @@
 
-
 const Footer = () => {
   return (
     <div className='w-[100%] h-[50px] bg-black flex justify-center items-center'>

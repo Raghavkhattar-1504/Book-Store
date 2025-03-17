@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import loginImg from '../assets/loginImg.png';
 import { Input } from 'antd';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import {loginAPI} from '../utils/API'
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -9,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const navigate = useNavigate();
 
   const validEmail = (email: string) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -19,23 +21,35 @@ const Login = () => {
     return password.length >= 6;
   };
 
-  const handleLogin = () => {
+   const handleLogin = async () => {
     setEmailError('');
     setPasswordError('');
 
-    let isValid = true;
-
     if (!validEmail(email)) {
       setEmailError('Please enter a valid email address.');
-      isValid = false;
+      return;
     }
-
+    
     if (!validPassword(password)) {
       setPasswordError('Password must be at least 6 characters long.');
-      isValid = false;
+      return;
     }
 
-    if (!isValid) return;
+    try{
+        const response = await loginAPI(email, password)
+        console.log("Login Successful" , response);
+        
+        localStorage.setItem("token" , JSON.stringify({
+          "token" : response.result.accessToken,
+          name: email.split("@")[0]
+        }))
+
+       navigate("/home"); 
+    }
+    catch(err){
+      console.log('Login Failed', err);
+      throw err;
+    }
   };
 
   return (

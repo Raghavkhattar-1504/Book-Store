@@ -4,7 +4,6 @@ import education from '../assets/education.svg';
 const ForgotPassword = () => {
     return (
         <div>
-            {/* Navbar */}
             <div className='w-full h-[60px] bg-[#A03037] flex items-center justify-center'>
                 <div className='flex items-center justify-between w-[80%] max-[450px]:w-[100%] h-full gap-[10px]'>
                     <div className='flex w-[60%] justify-between'>
@@ -16,7 +15,6 @@ const ForgotPassword = () => {
                 </div>
             </div>
 
-            {/* Main Content */}
             <div className="flex justify-center items-center w-full h-[91vh]">
                 <div className='w-[90%] sm:w-[70%] md:w-[50%] lg:w-[40%] xl:w-[30%] h-[400px] flex flex-col justify-around items-center'>
                     <h1 className='text-[25px] font-bold text-center !pb-[20px]'>Forgot Your Password ?</h1>

@@ -1,7 +1,9 @@
 import  { useState } from "react";
 import loginImg from "../assets/loginImg.png";
 import { Input } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { signupAPI } from "../utils/API";
+
 
 const Signup = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -15,6 +17,8 @@ const Signup = () => {
     password: "",
     mobileNumber: "",
   });
+
+  const navigate = useNavigate();
 
   const validFullName = (name : string) => {
     const regex = /^[a-zA-Z\s]+$/;
@@ -35,7 +39,7 @@ const Signup = () => {
     return regex.test(number);
   };
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     setErrors({
       fullName: "",
       email: "",
@@ -43,14 +47,12 @@ const Signup = () => {
       mobileNumber: "",
     });
 
-    let hasError:boolean = false;
-
     if (!validFullName(fullName)) {
       setErrors((prev) => ({
         ...prev,
         fullName: "Please enter a valid full name.",
       }));
-      hasError = true;
+      return;
     }
 
     if (!validEmail(email)) {
@@ -58,7 +60,7 @@ const Signup = () => {
         ...prev,
         email: "Please enter a valid email address.",
       }));
-      hasError = true;
+      return;
     }
 
     if (!validPassword(password)) {
@@ -66,7 +68,7 @@ const Signup = () => {
         ...prev,
         password: "Password must be at least 6 characters long.",
       }));
-      hasError = true;
+      return;
     }
 
     if (!validMobileNumber(mobileNumber)) {
@@ -74,7 +76,23 @@ const Signup = () => {
         ...prev,
         mobileNumber: "Please enter a valid 10-digit mobile number.",
       }));
-      hasError = true;
+      return;
+    }
+
+    try{
+
+      console.log("Data before Call" , {email, password, fullName, mobileNumber});
+      
+      const response = await signupAPI(email, password, mobileNumber, fullName);
+      console.log("Registration Successful!" , response);
+
+      console.log("Data after Call" , {email, password, mobileNumber, fullName });
+      
+      navigate('/');
+    }
+    catch(err){
+      console.error("Registraton Failed!" , err);
+      throw err;
     }
   };
 
