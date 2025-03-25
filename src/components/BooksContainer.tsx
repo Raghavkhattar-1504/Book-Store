@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Select, Pagination } from "antd";
 import BookCard from './BookCard';
 import { getAllBooksAPI } from '../utils/API';
+import { useSearchParams } from 'react-router-dom';
 import BookCover1 from '../assets/BookCover1.png';
 import BookCover2 from '../assets/BookCover2.png';
 import BookCover3 from '../assets/BookCover3.png';
@@ -21,15 +22,21 @@ interface Book {
     title: string;
     author: string;
     rating: number;
-    ratingsCount: number;
+    quantity: number;
     price: number;
-    cover: string
+    cover: string;
+    discountPrice: number;
+    description: string
 }
 
 const BooksContainer: React.FC = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const [books, setBooks] = useState<Book[]>([]);
     const [selectedValue, setSelectedValue] = useState<string>("relevance");
-    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [currentPage, setCurrentPage] = useState<number>(() => {
+        const pageFromUrl = searchParams.get('page');
+        return pageFromUrl ? parseInt(pageFromUrl, 10) : 1;
+    });
     const [itemsPerPage] = useState<number>(16);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -39,12 +46,16 @@ const BooksContainer: React.FC = () => {
         BookCover9
     ];
 
+    const ratings: Number[] = [4.1, 4.3, 4.8, 4.2, 4.6, 4.5, 4.9];
+
     useEffect(() => {
         const fetchBooks = async () => {
             try {
                 const response = await getAllBooksAPI();
                 setBooks(response.result);
                 setLoading(false);
+                // console.log(response.result);
+
             } catch (error) {
                 console.error("Error fetching books:", error);
                 setLoading(false);
@@ -60,6 +71,7 @@ const BooksContainer: React.FC = () => {
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
+        setSearchParams({ page: page.toString() })
     };
 
     const handleChange = (value: string) => {
@@ -67,7 +79,7 @@ const BooksContainer: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col justify-center items-center gap-10 !pt-[10px]'>
+        <div className='flex flex-col items-center gap-10 !pt-[10px] min-h-[85vh]'>
             <div className='w-[70%] h-[70px] flex justify-between items-center max-[450px]:flex-col'>
                 <div className='flex items-center gap-1 max-[450px]:items-left'>
                     <p className='text-[30px]'>Books</p>
@@ -75,7 +87,7 @@ const BooksContainer: React.FC = () => {
                 </div>
 
                 <Select
-                    defaultValue="relevance"
+                    defaultValue={selectedValue}
                     style={{ width: 200 }}
                     onChange={handleChange}
                     getPopupContainer={(triggerNode) => triggerNode.parentElement as HTMLElement}
@@ -88,23 +100,25 @@ const BooksContainer: React.FC = () => {
             </div>
 
             {loading ? (
-                <p>Loading books...</p>
+                <p className='min-h-[54vh]'>Loading books...</p>
             ) : (
                 <div className='w-[80%] flex justify-center items-center flex-wrap gap-6'>
                     {currentItems.map((book, index) => (
                         <BookCard key={book._id}
-                            // image={book.image}
+                            _id= {book._id}
                             title={book.bookName}
                             author={book.author}
-                            rating={book.rating}
-                            ratingsCount={book.ratingsCount}
+                            rating={ratings[index % ratings.length]}
+                            ratingsCount={book.quantity}
+                            discountedPrice={book.discountPrice}
                             price={book.price}
-                            cover={bookCovers[index % bookCovers.length]} />
+                            cover={bookCovers[index % bookCovers.length]}
+                            description={book.description} />
                     ))}
                 </div>
             )}
 
-            <div className='!mb-[40px]'>
+            <div className='!mb-[40px] mn'>
                 <Pagination
                     defaultCurrent={1}
                     current={currentPage}

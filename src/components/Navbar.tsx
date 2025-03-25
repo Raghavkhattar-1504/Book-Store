@@ -1,10 +1,11 @@
 import { useState } from "react";
 import education from "../assets/education.svg";
 import { User, ShoppingCart, Search, Wallet, Heart } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [dropdown, setDropDown] = useState(false);
+  const navigate = useNavigate();
 
   const getTokenData = () => {
     try {
@@ -50,7 +51,7 @@ const Navbar = () => {
             </div>
             <div className="m-[10px] w-[80px] max-[500px]:w-[60px] border-r-2 border-[#801F28] flex flex-col justify-center items-center cursor-pointer">
               <ShoppingCart className="text-white" />
-              <h6 className="text-[#FFFFFF] text-[12px]">Cart</h6>
+              <h6 className="text-[#FFFFFF] text-[12px]" onClick={()=>navigate("/mycart")}>Cart</h6>
             </div>
           </div>
         </div>

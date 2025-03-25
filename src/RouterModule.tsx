@@ -9,6 +9,9 @@ import LoggedOut from './components/LoggedOut'
 import Wishlist from './components/Wishlist'
 import MyOrders from './components/MyOrders'
 import MyCart from './components/MyCart'
+import MyCartPage from './pages/MyCartPage'
+import WishlistPage from './pages/WishlistPage'
+import BookDetailPage from './pages/BookDetailPage'
 const RouterModule = () => {
   const router = createBrowserRouter([
     {
@@ -28,8 +31,8 @@ const RouterModule = () => {
       element: <ForgotPassword />
     },
     {
-      path: '/bookdetail',
-      element: <BookDetail />
+      path: '/bookdetails/:bookId',
+      element: <BookDetailPage />
     },
     {
       path: '/orderplaced',
@@ -41,7 +44,7 @@ const RouterModule = () => {
     },
     {
       path: '/wishlist',
-      element: <Wishlist />
+      element: <WishlistPage />
     },
     {
       path: '/myorders',
@@ -49,7 +52,7 @@ const RouterModule = () => {
     },
     {
       path: '/mycart',
-      element: <MyCart />
+      element: <MyCartPage />
     }
 
   ])
