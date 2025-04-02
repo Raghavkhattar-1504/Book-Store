@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import * as router from 'react-router-dom';
 import * as redux from 'react-redux';
 
-// Mock API utilities
 jest.mock('../utils/API', () => ({
   addToCart: jest.fn(),
   addWishlist: jest.fn(),
@@ -14,7 +13,6 @@ jest.mock('../utils/API', () => ({
   removeWishlist: jest.fn(),
 }));
 
-// Mock react-toastify
 jest.mock('react-toastify', () => ({
   toast: {
     success: jest.fn(),
@@ -22,17 +20,14 @@ jest.mock('react-toastify', () => ({
   },
 }));
 
-// Mock lucide-react icons
 jest.mock('lucide-react', () => ({
   Star: ({ className, fill }: any) => <span className={className} data-testid="star" style={{ fill }}>★</span>,
   Dot: () => <span data-testid="dot">•</span>,
   Heart: ({ className, fill }: any) => <span className={className} data-testid="heart" style={{ fill }}>♥</span>,
 }));
 
-// Mock image import
 jest.mock('../assets/bookCover2.png', () => 'mock-book-cover-2');
 
-// Mock react-router-dom hooks
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),
@@ -40,14 +35,12 @@ jest.mock('react-router-dom', () => ({
   useParams: jest.fn(),
 }));
 
-// Mock react-redux hooks to avoid needing a Provider
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
-  useDispatch: jest.fn(() => jest.fn()), // Mock dispatch as a no-op function
-  useSelector: jest.fn(() => ({ items: [] })), // Mock cart items as empty array
+  useDispatch: jest.fn(() => jest.fn()), 
+  useSelector: jest.fn(() => ({ items: [] })), 
 }));
 
-// Mock child components
 jest.mock('../components/FeedbackBookPage', () => () => <div data-testid="feedback-section">Feedback Section</div>);
 jest.mock('../components/CartCounter', () => ({ data }: any) => (
   <div data-testid="cart-counter">Cart Counter: {data.bookInCartQuantity}</div>
@@ -84,7 +77,7 @@ describe('BookPageContainer', () => {
     (addWishlist as jest.Mock).mockResolvedValue({});
     (removeWishlist as jest.Mock).mockResolvedValue({});
     localStorage.setItem('token', JSON.stringify({ token: 'fake-token' }));
-    (redux.useSelector as unknown as jest.Mock).mockReturnValue({ items: [] }); // No items in cart
+    (redux.useSelector as unknown as jest.Mock).mockReturnValue({ items: [] }); 
   });
 
   const renderWithRouter = () =>
@@ -120,7 +113,6 @@ describe('BookPageContainer', () => {
 
     renderWithRouter();
     await waitFor(() => {
-      // Expect 2 calls due to Strict Mode in development
       expect(getWishlistItems).toHaveBeenCalledTimes(2);
       expect(consoleErrorSpy).toHaveBeenCalledWith('Error fetching wishlist:', expect.any(Error));
       expect(screen.getByText('WISHLIST')).toBeInTheDocument();

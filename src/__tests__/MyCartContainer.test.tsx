@@ -98,7 +98,7 @@ describe("MyCartContainer Component", () => {
     fireEvent.click(decreaseButton);
 
     await waitFor(() => {
-      expect(updateCartItems).toHaveBeenCalled(); // Kyunki quantity 1 pe h, decrease nahi hoga
+      expect(updateCartItems).toHaveBeenCalled(); 
     });
   });
 

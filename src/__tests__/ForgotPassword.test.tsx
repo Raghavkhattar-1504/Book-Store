@@ -1,11 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import ForgotPassword from '../pages/ForgotPassword';
 
-// Mock the educationImage import
 jest.mock('../assets/education.svg', () => 'mocked-education-image.svg');
 
 describe('ForgotPassword Component', () => {
-  // Test 1: Check if component renders correctly
   test('renders ForgotPassword component with all elements', () => {
     render(<ForgotPassword />);
     
@@ -19,7 +17,6 @@ describe('ForgotPassword Component', () => {
     expect(screen.getByText('CREATE ACCOUNT')).toBeInTheDocument();
   });
 
-  // Test 2: Check header styling (fixed version)
   test('header has correct background color and text styling', () => {
     render(<ForgotPassword />);
     
@@ -28,7 +25,6 @@ describe('ForgotPassword Component', () => {
     expect(bookStoreElement).toHaveClass('text-white');
   });
 
-  // Test 3: Check input field functionality
   test('email input accepts text', () => {
     render(<ForgotPassword />);
     
@@ -37,7 +33,6 @@ describe('ForgotPassword Component', () => {
     expect(emailInput).toHaveValue('');
   });
 
-  // Test 4: Check button existence and styling
   test('reset password button has correct styling', () => {
     render(<ForgotPassword />);
     
@@ -47,7 +42,6 @@ describe('ForgotPassword Component', () => {
     expect(resetButton).toHaveClass('text-white');
   });
 
-  // Test 5: Check responsive container widths
   test('container has correct max-width classes', () => {
     render(<ForgotPassword />);
     
@@ -59,7 +53,6 @@ describe('ForgotPassword Component', () => {
     expect(formSection).toHaveClass('max-[350px]:w-[300px]');
   });
 
-  // Test 6: Check if image has correct alt text
   test('education image has correct alt text', () => {
     render(<ForgotPassword />);
     
@@ -68,7 +61,6 @@ describe('ForgotPassword Component', () => {
     expect(image).toHaveAttribute('src', 'mocked-education-image.svg');
   });
 
-  // Test 7: Check form section structure
   test('form section has correct layout and border', () => {
     render(<ForgotPassword />);
     
@@ -80,9 +72,7 @@ describe('ForgotPassword Component', () => {
   });
 });
 
-// Setup file content (if needed, place this in setupTests.ts)
 beforeAll(() => {
-  // Mock Ant Design Input component
   jest.mock('antd', () => ({
     Input: jest.fn((props) => <input {...props} />),
   }));

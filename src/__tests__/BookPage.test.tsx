@@ -1,8 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import BookPage from "../pages/BookPage";
-// import Navbar from "../components/Navbar";
-// import BookPageContainer from "../components/BookPageContainer";
-// import Footer from "../components/Footer";
 import '@testing-library/jest-dom';
 
 jest.mock("../components/Navbar",()=>()=><div data-testid="navbar">Navbar</div>);
