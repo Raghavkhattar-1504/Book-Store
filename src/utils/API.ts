@@ -25,7 +25,7 @@ export const registerUser = async (email: string, password: string, phone: strin
 
 export const getAllBooks = async () => {
     try {
-        const response = await axios.get(`${BASE_URL}/get/b`);
+        const response = await axios.get(`${BASE_URL}/get/book`);
         return response.data;
     }
     catch (error) {
