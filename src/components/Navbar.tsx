@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import educationImage from '../assets/education.svg';
 import { User, ShoppingCart, Search, Wallet, Heart } from 'lucide-react';
 import { setSearchQuery } from "../redux/searchSlice";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../redux/store";
+import { useDispatch } from "react-redux";
+import type { AppDispatch} from "../redux/store";
 
 function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
